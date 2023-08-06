@@ -1,3 +1,21 @@
+import Image from "next/image";
+import Link from "next/link";
+
 export default function Header() {
-  return <div>header</div>;
+  return (
+    <header>
+      <div className="contenedor">
+        <Image
+          src="/img/logo.svg"
+          width={300}
+          height={40}
+          alt="imagen logotipo"
+        />
+        <nav>
+          <Link href="/">Inicio</Link>
+          <Link href="/nosotros">Nosotros</Link>
+        </nav>
+      </div>
+    </header>
+  );
 }
