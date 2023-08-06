@@ -4,7 +4,7 @@ export default function Layout({ children, title = "", description = "" }) {
     <div>
       <Head>
         <title>{`GuitarLA - ${title}`}</title>
-        <description>{description}</description>
+        <meta name="description" content={description} />
       </Head>
       <h1>Desde Layout</h1>
       {children}
