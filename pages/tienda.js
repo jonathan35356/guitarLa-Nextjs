@@ -1,9 +1,35 @@
 import Layout from "../components/layout";
+import Guitarra from "../components/guitarra";
 
-export default function Tienda() {
+export default function Tienda({ guitarras }) {
+  const guitarrass = guitarras;
   return (
     <Layout title={"Tienda Virtual"} description={"Venta de guitarras"}>
-      <h1>Tienda</h1>
+      <main className="contenedor">
+        <h1 className="heading">Nuestra Colección</h1>
+        {guitarras?.map((guitarra) => (
+          <Guitarra key={guitarra.id} guitarra={guitarra.attributes} />
+        ))}
+      </main>
     </Layout>
   );
 }
+
+//el metodo nuevo para ssr o server side rende  getServerSideProps
+export async function getServerSideProps() {
+  const respuesta = await fetch(
+    "http://192.168.1.20:1337/api/guitarras?populate=imagen"
+  );
+  const { data: guitarras } = await respuesta.json();
+  return { props: { guitarras } };
+}
+
+//funcion estatica como loader se debe tener
+//en cuenta que debe de estar en el mismo archivo getStaticProps
+// export async function getStaticProps() {
+//   const respuesta = await fetch(
+//     "http://192.168.1.20:1337/api/guitarras?populate=imagen"
+//   );
+//   const { data: guitarras } = await respuesta.json();
+//   return { props: { guitarras } };
+// }
