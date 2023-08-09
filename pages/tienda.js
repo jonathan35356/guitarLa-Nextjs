@@ -18,21 +18,10 @@ export default function Tienda({ guitarras }) {
   );
 }
 
-//el metodo nuevo para ssr o server side rende  getServerSideProps
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const respuesta = await fetch(
     "http://192.168.1.24:1337/api/guitarras?populate=imagen"
   );
   const { data: guitarras } = await respuesta.json();
   return { props: { guitarras } };
 }
-
-//funcion estatica como loader se debe tener
-//en cuenta que debe de estar en el mismo archivo getStaticProps
-// export async function getStaticProps() {
-//   const respuesta = await fetch(
-//     "http://192.168.1.20:1337/api/guitarras?populate=imagen"
-//   );
-//   const { data: guitarras } = await respuesta.json();
-//   return { props: { guitarras } };
-// }
