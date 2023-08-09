@@ -5,7 +5,7 @@ import Layout from "../../components/layout";
 export default function Guitarra({ guitarra }) {
   const { nombre, imagen, descripcion, precio } = guitarra[0].attributes;
   return (
-    <Layout>
+    <Layout title={`Guitarra ${nombre}`}>
       <div className={styles.guitarra}>
         <Image
           src={imagen.data.attributes.url}
@@ -29,21 +29,16 @@ export async function getStaticPaths() {
     "http://192.168.1.24:1337/api/guitarras?populate=imagen"
   );
   const { data } = await respuesta.json();
-
   const paths = data.map((guitarra) => ({
     params: {
       url: guitarra.attributes.url,
     },
   }));
-
-  console.log(paths);
-
   return {
     paths,
     fallback: false,
   };
 }
-
 export async function getStaticProps({ params: { url } }) {
   const respuesta = await fetch(
     `http://192.168.1.24:1337/api/guitarras?filters[url]=${url}&populate=imagen`

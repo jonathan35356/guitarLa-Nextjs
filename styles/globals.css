@@ -36,3 +36,16 @@ main {
   color: var(--primary);
   margin: 5rem 0;
 }
+
+.error,
+.error-enlace {
+  font-size: 2.4rem;
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.error-enlace {
+  display: block !important;
+  text-decoration: none !important;
+  color: var(--primary);
+}
