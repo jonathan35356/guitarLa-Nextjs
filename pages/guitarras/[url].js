@@ -1,10 +1,33 @@
-export default function Guitarra(guitarra) {
-  console.log(guitarra);
-  return <div>Guitarra</div>;
+import Image from "next/image";
+import styles from "../../styles/guitarras.module.css";
+import Layout from "../../components/layout";
+
+export default function Guitarra({ guitarra }) {
+  const { nombre, imagen, descripcion, precio } = guitarra[0].attributes;
+  return (
+    <Layout>
+      <div className={styles.guitarra}>
+        <Image
+          src={imagen.data.attributes.url}
+          alt={`Imagen guitarra ${nombre}`}
+          width={300}
+          height={500}
+        />
+        <div className={styles.contenido}>
+          <h3>{nombre}</h3>
+          <p className={styles.descripcion}>{descripcion}</p>
+          <p className={styles.precio}>{precio}</p>
+          Ver Producto
+        </div>
+      </div>
+    </Layout>
+  );
 }
 
 export async function getStaticPaths() {
-  const respuesta = await fetch("http://192.168.1.24:1337/api/guitarras");
+  const respuesta = await fetch(
+    "http://192.168.1.24:1337/api/guitarras?populate=imagen"
+  );
   const { data } = await respuesta.json();
 
   const paths = data.map((guitarra) => ({
