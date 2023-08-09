@@ -21,7 +21,7 @@ export default function Tienda({ guitarras }) {
 //el metodo nuevo para ssr o server side rende  getServerSideProps
 export async function getServerSideProps() {
   const respuesta = await fetch(
-    "http://192.168.1.20:1337/api/guitarras?populate=imagen"
+    "http://192.168.1.24:1337/api/guitarras?populate=imagen"
   );
   const { data: guitarras } = await respuesta.json();
   return { props: { guitarras } };

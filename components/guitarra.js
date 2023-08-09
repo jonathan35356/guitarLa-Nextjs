@@ -9,7 +9,7 @@ export default function Guitarra({ guitarra }) {
       <Image
         src={imagen.data.attributes.formats.medium.url}
         alt={`Imagen guitarra ${nombre}`}
-        width={200}
+        width={300}
         height={500}
       />
       <div className={styles.contenido}>
