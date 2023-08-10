@@ -1,8 +1,11 @@
+import { useState } from "react";
 import Image from "next/image";
 import styles from "../../styles/guitarras.module.css";
 import Layout from "../../components/layout";
 
 export default function Guitarra({ guitarra }) {
+  const [cantidad, setCantidad] = useState(0);
+  console.log(cantidad);
   const { nombre, imagen, descripcion, precio } = guitarra[0].attributes;
   return (
     <Layout title={`Guitarra ${nombre}`}>
@@ -17,7 +20,21 @@ export default function Guitarra({ guitarra }) {
           <h3>{nombre}</h3>
           <p className={styles.descripcion}>{descripcion}</p>
           <p className={styles.precio}>{precio}</p>
-          Ver Producto
+          <form className={styles.formulario}>
+            <label htmlFor="cantidad">Cantidad:</label>
+            <select
+              id="cantidad"
+              onChange={(e) => setCantidad(+e.target.value)}
+            >
+              <option value="0">-- Seleccione --</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+            <input type="submit" value="Agregar al carrito" />
+          </form>
         </div>
       </div>
     </Layout>

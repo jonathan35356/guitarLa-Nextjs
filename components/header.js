@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import Head from "next/head";
 import styles from "../styles/header.module.css";
 import { useRouter } from "next/router";
+import carrito from "../public/img/carrito.png";
 
 export default function Header() {
   const router = useRouter();
@@ -40,6 +40,14 @@ export default function Header() {
             className={router.pathname === "/blog" ? styles.active : ""}
           >
             Blog
+          </Link>
+          <Link href="/carrito">
+            <Image
+              src={carrito}
+              width={30}
+              height={25}
+              alt="carrito de compras"
+            ></Image>
           </Link>
         </nav>
       </div>
