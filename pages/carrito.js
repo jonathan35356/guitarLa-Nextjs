@@ -1,7 +1,7 @@
 import Layout from "../components/layout";
 import styles from "../styles/carrito.module.css";
 
-export default function Carrito() {
+export default function Carrito({ carrito }) {
   return (
     <Layout title="Carrito de Compras">
       <main className="contenedor">
@@ -9,6 +9,11 @@ export default function Carrito() {
         <div className={styles.contenido}>
           <div className={styles.carrito}>
             <h2>articulos</h2>
+            {carrito.length === 0
+              ? "Carrito vacio"
+              : carrito.map((producto) => (
+                  <div key={producto.id}>{producto.cantidad}</div>
+                ))}
           </div>
           <aside className={styles.resumen}>
             <h3>Resumen del pedido</h3>

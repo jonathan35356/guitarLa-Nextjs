@@ -3,10 +3,27 @@ import Image from "next/image";
 import styles from "../../styles/guitarras.module.css";
 import Layout from "../../components/layout";
 
-export default function Guitarra({ guitarra }) {
+export default function Guitarra({ guitarra, agregarCarrito }) {
   const [cantidad, setCantidad] = useState(0);
-  console.log(cantidad);
   const { nombre, imagen, descripcion, precio } = guitarra[0].attributes;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (cantidad < 1) {
+      alert("Cantidad no válida");
+      return;
+    }
+
+    const guitarraSeleccionada = {
+      id: guitarra[0].id,
+      imagen: imagen.data.attributes.url,
+      precio,
+      nombre,
+      cantidad,
+    };
+    agregarCarrito(guitarraSeleccionada);
+  };
+
   return (
     <Layout title={`Guitarra ${nombre}`}>
       <div className={styles.guitarra}>
@@ -20,7 +37,7 @@ export default function Guitarra({ guitarra }) {
           <h3>{nombre}</h3>
           <p className={styles.descripcion}>{descripcion}</p>
           <p className={styles.precio}>{precio}</p>
-          <form className={styles.formulario}>
+          <form className={styles.formulario} onSubmit={handleSubmit}>
             <label htmlFor="cantidad">Cantidad:</label>
             <select
               id="cantidad"
