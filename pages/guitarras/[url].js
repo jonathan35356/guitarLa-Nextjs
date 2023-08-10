@@ -39,6 +39,7 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
+
 export async function getStaticProps({ params: { url } }) {
   const respuesta = await fetch(
     `http://192.168.1.24:1337/api/guitarras?filters[url]=${url}&populate=imagen`

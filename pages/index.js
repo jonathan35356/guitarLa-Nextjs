@@ -1,29 +1,58 @@
 import Link from "next/link";
 import Layout from "../components/layout";
+import Guitarra from "../components/guitarra";
+import styles from "../styles/grid.module.css";
+import Post from "../components/post";
+
 export default function Home({ guitarras, posts }) {
-  console.log(guitarras, posts);
   return (
-    <Layout title="Index">
-      <h1>Hola mundo en Next</h1>
-      <Link href="/nosotros">Ir a nosotros</Link>
+    <Layout
+      title="Index"
+      description={"Blog de música, venta de guitarras y más"}
+    >
+      <main className="contenedor">
+        <h1 className="heading">Nuestra Colección</h1>
+        <div className={styles.grid}>
+          {guitarras?.map((guitarra) => (
+            <Guitarra key={guitarra.id} guitarra={guitarra.attributes} />
+          ))}
+        </div>
+      </main>
+      <section className="contenedor">
+        <h2 className="heading">Blog</h2>
+        <div className={styles.grid}>
+          {posts?.map((post) => (
+            <Post key={post.id} post={post.attributes} />
+          ))}
+        </div>
+      </section>
     </Layout>
   );
 }
 
 export async function getStaticProps() {
-  const resGuitarras = await fetch(
-    "http://192.168.1.24:1337/api/guitarras?populate=imagen"
-  );
-  const resPosts = await fetch(
-    "http://192.168.1.24:1337/api/posts?populate=imagen"
-  );
-  const { data: guitarras } = await resGuitarras.json();
-  const { data: posts } = await resPosts.json();
+  try {
+    const resCurso = await fetch(
+      "http://192.168.1.24:1337/api/curso?populate=imagen"
+    );
 
-  return {
-    props: {
-      guitarras,
-      posts,
-    },
-  };
+    const resGuitarras = await fetch(
+      "http://192.168.1.24:1337/api/guitarras?populate=imagen"
+    );
+    const resPosts = await fetch(
+      "http://192.168.1.24:1337/api/posts?populate=imagen"
+    );
+    const { data: guitarras } = await resGuitarras.json();
+    const { data: posts } = await resPosts.json();
+    const { data: curso } = await resCurso.json();
+    return {
+      props: {
+        guitarras,
+        posts,
+        curso,
+      },
+    };
+  } catch (error) {
+    console.log(error.message);
+  }
 }
