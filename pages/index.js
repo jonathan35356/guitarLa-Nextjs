@@ -1,10 +1,12 @@
 import Link from "next/link";
 import Layout from "../components/layout";
 import Guitarra from "../components/guitarra";
-import styles from "../styles/grid.module.css";
+import Curso from "../components/curso";
 import Post from "../components/post";
+import styles from "../styles/grid.module.css";
 
-export default function Home({ guitarras, posts }) {
+export default function Home({ guitarras, posts, curso }) {
+  console.log(curso);
   return (
     <Layout
       title="Index"
@@ -18,6 +20,7 @@ export default function Home({ guitarras, posts }) {
           ))}
         </div>
       </main>
+      <Curso curso={curso.attributes}></Curso>
       <section className="contenedor">
         <h2 className="heading">Blog</h2>
         <div className={styles.grid}>
