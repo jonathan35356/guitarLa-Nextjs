@@ -18,9 +18,11 @@ export default function Blog({ posts }) {
 }
 
 export async function getStaticProps() {
-  const respuesta = await fetch(
-    "http://192.168.1.24:1337/api/posts?populate=imagen"
-  );
+  const respuesta = await fetch(`${process.env.API_URL}/posts?populate=imagen`);
   const { data: posts } = await respuesta.json();
-  return { props: { posts } };
+  return {
+    props: {
+      posts,
+    },
+  };
 }

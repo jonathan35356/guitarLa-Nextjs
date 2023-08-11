@@ -28,11 +28,9 @@ export default function Post({ post }) {
 
 export async function getServerSideProps({ query: { url } }) {
   const respuesta = await fetch(
-    `http://192.168.1.24:1337/api/posts?filters[url]=${url}&populate=imagen`
+    `${process.env.API_URL}/posts?filters[url]=${url}&populate=imagen`
   );
-
   const { data: post } = await respuesta.json();
-
   return {
     props: {
       post,

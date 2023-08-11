@@ -59,10 +59,9 @@ export default function Guitarra({ guitarra, agregarCarrito }) {
 }
 
 export async function getStaticPaths() {
-  const respuesta = await fetch(
-    "http://192.168.1.24:1337/api/guitarras?populate=imagen"
-  );
+  const respuesta = await fetch(`${process.env.API_URL}/guitarras`);
   const { data } = await respuesta.json();
+
   const paths = data.map((guitarra) => ({
     params: {
       url: guitarra.attributes.url,
@@ -76,8 +75,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { url } }) {
   const respuesta = await fetch(
-    `http://192.168.1.24:1337/api/guitarras?filters[url]=${url}&populate=imagen`
+    `${process.env.API_URL}/guitarras?filters[url]=${url}&populate=imagen`
   );
   const { data: guitarra } = await respuesta.json();
-  return { props: { guitarra } };
+  return {
+    props: {
+      guitarra,
+    },
+  };
 }
